@@ -13,7 +13,7 @@ def lambda_handler(event, context):
             response = response['StartingInstances'][0]
             return {'statusCode': 200, 'message': f'Instance {response["InstanceId"]} is starting and is currently {response["CurrentState"]["Name"]}. Was {response["PreviousState"]["Name"]}.'}
         except Exception as e:
-            return e
+            return e.message
 
         
     elif event['action'] == 'stop':
@@ -30,3 +30,6 @@ def lambda_handler(event, context):
 
     else:
         return {'statusCode': 401, 'message': 'No action provided'}
+
+a = lambda_handler({"action":"start", "instance":"123"}, 1)
+print(a)
